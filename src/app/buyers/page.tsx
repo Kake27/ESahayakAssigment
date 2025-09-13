@@ -4,10 +4,14 @@ import { useUser } from "@/context/UserContext"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 
+
 export default function Buyers() {
     const {user, logout} = useUser()
     const router = useRouter()
 
+    const handleCreateLead = () => {
+        router.push("/buyers/new")
+    }
     const handleLogout = () => {
         logout()
         router.replace("/login")
@@ -17,6 +21,7 @@ export default function Buyers() {
         <div className="p-6">
             <div className="flex justify-between items-center mb-6">
                 <h1 className="text-2xl font-semibold">Buyer Leads</h1>
+                <button onClick={handleCreateLead} className="mb-4">Create new lead</button>
                 {user && (
                 <div className="flex items-center gap-4">
                     <span className="text-gray-700">Logged in as: {user.name}</span>
