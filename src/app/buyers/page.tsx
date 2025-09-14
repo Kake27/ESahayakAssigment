@@ -1,6 +1,5 @@
 
 import { PrismaClient } from "../../generated/prisma"
-import Link from "next/link"
 import BuyersClient from "./BuyersClient";
 
 interface BuyersPageProps {

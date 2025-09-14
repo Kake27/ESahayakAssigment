@@ -1,6 +1,7 @@
 import { PrismaClient } from "../../../../generated/prisma";
 import { buyerSchema } from "@/lib/validation/newBuyer";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { success } from "zod";
 
 const prisma = new PrismaClient()
 
@@ -29,11 +30,11 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
         })
 
         await prisma.buyerHistory.create({
-        data: {
-            buyerId: updated.id,
-            changedBy: "TODO: userName", // get from context or frontend
-            diff: { old: buyer, new: updated },
-        },
+            data: {
+                buyerId: updated.id,
+                changedBy: body.changedBy, 
+                diff: { old: buyer, new: updated },
+            },
         });
 
         return NextResponse.json(updated);
@@ -42,4 +43,24 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
         return NextResponse.json({ error: err.message }, { status: 400 });
     }
     
+}
+
+export async function DELETE(req: NextRequest, {params}:  {params: {id: string}}) {
+    try {
+        const param = await params
+        const id  = param.id
+
+        await prisma.buyerHistory.deleteMany({
+            where: {buyerId: id}
+        })
+
+        await prisma.buyer.delete({
+            where: {id}
+        })
+
+        return NextResponse.json({success: true}, {status: 200});
+    }
+    catch(err:any) {
+        return NextResponse.json({ error: err.message || "Failed to delete buyer" },{ status: 500 });
+    }
 }
