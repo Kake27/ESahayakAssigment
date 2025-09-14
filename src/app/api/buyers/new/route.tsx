@@ -1,11 +1,21 @@
 import { NextResponse } from "next/server";
 import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
 import { PrismaClient } from '../../../../generated/prisma/'
+import { rateLimit } from "@/lib/rateLimiter";
 
 
 const prisma = new PrismaClient()
 
 export async function POST(req: Request) {
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
+    const limit = rateLimit(ip)
+
+    if(!limit.success) {
+        return NextResponse.json(
+            {error: `Rate limit exceeded. Please try again in ${Math.ceil(limit.retryAfter/1000)}s`},
+            {status: 429}
+        )
+    }
 
     try {
         const body = await req.json();

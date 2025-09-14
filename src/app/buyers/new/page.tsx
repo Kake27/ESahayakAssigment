@@ -4,22 +4,7 @@ import { useUser } from "@/context/UserContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { buyerSchemaRefined, type BuyerInput } from "@/lib/validation/newBuyer";
-import { 
-  User, 
-  Mail, 
-  Phone, 
-  MapPin, 
-  Home, 
-  DollarSign, 
-  Calendar, 
-  Tag, 
-  FileText, 
-  Clock, 
-  AlertCircle, 
-  Save,
-  ArrowLeft,
-  Plus,
-  UserPlus
+import { User,Mail,Phone,MapPin,Home,DollarSign,Calendar,Tag,FileText,Clock,AlertCircle, Save,ArrowLeft,Plus,UserPlus
 } from "lucide-react";
 
 const BHK_MAP: Record<string, string> = {
@@ -65,7 +50,7 @@ export default function NewBuyer() {
     const router = useRouter();
 
     if(!user) { 
-        return router.push("/login");
+        return router.replace("/");
     }
     
     const [formData, setFormData] = useState<BuyerInput>({
