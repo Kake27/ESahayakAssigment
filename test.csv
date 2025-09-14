@@ -1,0 +1,6 @@
+fullName,email,phone,city,propertyType,bhk,purpose,budgetMin,budgetMax,timeline,source,notes,tags,status
+Rahul Sharma,rahul.sharma@example.com,9876543210,Chandigarh,Apartment,Two,Buy,4000000,6000000,M0_3,Website,Looking for investment,hot,New
+Anita Verma,anita.verma@example.com,9812345678,Mohali,Villa,Three,Buy,8000000,10000000,M3_6,Referral,Prefers gated community,luxury,Qualified
+Suresh Kumar,,9998887777,Zirakpur,Plot,,Buy,2500000,4000000,M6_plus,Walk_in,Wants corner plot,land,Contacted
+Priya Singh,priya.singh@example.com,9876501234,Panchkula,Office,,Rent,20000,50000,Exploring,Call,Looking for co-working space,office,Dropped
+Vikram Malhotra,vikram.malhotra@example.com,9123456789,Other,Retail,,Buy,5000000,7000000,M0_3,Other,Interested in prime market location,retail,Converted

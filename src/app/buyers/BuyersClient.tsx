@@ -3,6 +3,7 @@
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useState } from "react";
 
 interface BuyersClientProps {
   buyers: any[];
@@ -19,14 +20,11 @@ const REVERSE_TIMELINE_MAP: Record<string, string> = {
 };
 
 
-export default function BuyersClient({
-  buyers,
-  totalPages,
-  currentPage,
-  params,
-}: BuyersClientProps) {
-  const { user, logout } = useUser();
+export default function BuyersClient({buyers,totalPages,currentPage,params}: BuyersClientProps) {
+  const { user, loading, logout } = useUser();
   const router = useRouter();
+
+  const [errors, setErrors] = useState<{row:number; message: string}[]>([])
 
   const handleCreateLead = () => {
     router.push("/buyers/new");
@@ -36,6 +34,32 @@ export default function BuyersClient({
     logout();
     router.replace("/");
   };
+
+  if(!loading) {
+    if(!user) return router.replace("/")
+  }
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if(!e.target.files?.[0]) return;
+
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append("file", file)
+    formData.append("ownerId", user ? user.id : "")
+
+    const res = await fetch("/api/buyers/import", {
+      method: "POST",
+      body: formData
+    })
+
+    const data = await res.json();
+      if (data.errors) {
+        setErrors(data.errors);
+      } else {
+          alert("Import successful!");
+          window.location.reload();
+      }
+  }
 
   const handleExport = () => {
     const query = new URLSearchParams(params as Record<string, string>).toString();
@@ -48,6 +72,9 @@ export default function BuyersClient({
       <button onClick={handleCreateLead} className="mb-4">
         Create new lead
       </button>
+
+      <label className="block mb-2 font-medium">Import Buyers (CSV)</label>
+      <input type="file" accept=".csv" onChange={handleFileChange} />
 
       <button
           onClick={handleExport}
@@ -136,6 +163,26 @@ export default function BuyersClient({
           Apply
         </button>
       </form>
+
+      {/* Errors Table */}
+      {errors.length > 0 && (
+        <table className="mt-4 border w-full">
+          <thead>
+            <tr>
+              <th className="border px-2 py-1">Row</th>
+              <th className="border px-2 py-1">Error</th>
+            </tr>
+          </thead>
+          <tbody>
+            {errors.map((err, i) => (
+              <tr key={i}>
+                <td className="border px-2 py-1">{err.row}</td>
+                <td className="border px-2 py-1 text-red-600">{err.message}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       {/* Table */}
       <table className="w-full border-collapse border">

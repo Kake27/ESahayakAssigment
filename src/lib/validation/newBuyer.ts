@@ -5,7 +5,7 @@ export const buyerSchema = z.object({
   email: z.string().email("Invalid email").optional().or(z.literal("")),
   phone: z.string().regex(/^\d{10,15}$/, "Phone must be 10–15 digits"),
   city: z.string().min(1, "City is required"),
-  propertyType: z.enum(["Apartment", "Villa", "Plot", "Land", "Other"]),
+  propertyType: z.enum(["Apartment", "Villa", "Plot", "Office", "Retail"]),
   bhk: z.string().optional(), 
   purpose: z.string().min(1, "Purpose is required"),
   budgetMin: z.number().nonnegative().optional(),

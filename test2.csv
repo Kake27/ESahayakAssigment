@@ -1,0 +1,9 @@
+fullName,email,phone,city,propertyType,bhk,purpose,budgetMin,budgetMax,timeline,source,notes,tags,status
+John Doe,john@example.com,9876543210,Chandigarh,Apartment,2,Buy,500000,700000,0-3 Months,Website,Looking for 2 BHK,"urgent,priority",New
+Jane Smith,invalid-email,12345,Mohali,Villa,3,Rent,20000,15000,3-6 Months,Referral,Invalid budget range,"",Qualified
+Sam Patel,sam@example.com,9876543211,Zirakpur,Plot,,Buy,,1000000,Exploring,Call,Missing min budget,"investment",Contacted
+,empty@example.com,9876543212,Panchkula,Apartment,Studio,Buy,300000,400000,0-3 Months,Website,Missing name,"",Visited
+Aarav Gupta,aarav@example,9876543213,Other,Villa,5,Buy,1000000,2000000,>6 Months,Walk In,Invalid email + BHK,"",Converted
+Priya Mehta,priya@example.com,abcdefghij,Chandigarh,Office,,Buy,500000,600000,0-3 Months,Website,Invalid phone digits,"office",Negotiation
+Rohit Sharma,rohit@example.com,9876543214,Mohali,Apartment,2,Buy,800000,700000,0-3 Months,Other,Budget max less than min,"",Dropped
+Anita Rao,anita@example.com,9876543215,Zirakpur,Villa,,Rent,400000,500000,InvalidTimeline,Website,Invalid timeline,"rent",New

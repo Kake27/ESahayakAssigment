@@ -12,7 +12,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
         const param = await params
         const id = param.id
         
-        const buyer = await prisma.buyer.findUnique({where: {id:params.id}})
+        const buyer = await prisma.buyer.findUnique({where: {id: id}})
 
         if(!buyer) return NextResponse.json({error: "Not found"}, {status:404});
 
