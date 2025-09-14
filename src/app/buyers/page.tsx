@@ -22,20 +22,18 @@ export default async function Buyers({searchParams}: { searchParams: Promise<Rec
     const page = parseInt(params.page || "1", 10)
     const where: any = {}
 
-    // const {user, logout} = useUser()
-    // const router = useRouter()
-
 
     if (params.city) where.city = params.city;
     if (params.propertyType) where.propertyType = params.propertyType;
     if (params.status) where.status = params.status;
     if (params.timeline) where.timeline = params.timeline;
 
-    if (params.query) {
+    if (params.query && params.query.trim()!=="") {
         where.OR = [
             { fullName: { contains: params.query, mode: "insensitive" } },
             { phone: { contains: params.query } },
             { email: { contains: params.query, mode: "insensitive" } },
+            { notes: { contains: params.query, mode: "insensitive" } }
         ];
     }
 

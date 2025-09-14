@@ -43,7 +43,6 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
 
   const handleLogout = () => {
     logout();
-    
     router.replace("/");
     toast.success("Logged out successfully!")
   };
@@ -336,7 +335,6 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        {/* <DollarSign className="w-4 h-4 text-gray-400" /> */}
                         <span className="text-sm text-gray-700">
                           {buyer.budgetMin} - {buyer.budgetMax}
                         </span>
@@ -348,10 +346,54 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
                         <span className="text-sm text-gray-700">{REVERSE_TIMELINE_MAP[buyer.timeline]}</span>
                       </div>
                     </td>
-                    <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${STATUS_COLORS[buyer.status] || 'bg-gray-100 text-gray-800 border-gray-200'}`}>
-                        {buyer.status}
-                      </span>
+
+                                       <td className="px-6 py-4">
+                      {buyer.ownerId === user?.id ? (
+                        <select
+                          value={buyer.status}
+                          onChange={async (e) => {
+                            const newStatus = e.target.value;
+
+                            try {
+                              await fetch(`/api/buyers/${buyer.id}`, {
+                                method: "PUT",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify({
+                                  ...buyer,                
+                                  status: newStatus,         
+                                  updatedAt: buyer.updatedAt, 
+                                  changedBy: user?.name,   
+                                }),
+                              });
+
+                              buyer.status = newStatus;
+                              window.location.reload()
+                              
+                            } catch (err) {
+                              console.error("Failed to update status", err);
+                            }
+                          }}
+                          className={`px-3 py-1 rounded-full text-xs font-medium border cursor-pointer transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 hover:shadow-md ${
+                            STATUS_COLORS[buyer.status] || "bg-gray-100 text-gray-800 border-gray-200"
+                          }`}
+                        >
+                          <option value="New">New</option>
+                          <option value="Qualified">Qualified</option>
+                          <option value="Contacted">Contacted</option>
+                          <option value="Visited">Visited</option>
+                          <option value="Negotiation">Negotiation</option>
+                          <option value="Converted">Converted</option>
+                          <option value="Dropped">Dropped</option>
+                        </select>
+                      ) : (
+                        <span
+                          className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${
+                            STATUS_COLORS[buyer.status] || "bg-gray-100 text-gray-800 border-gray-200"
+                          }`}
+                        >
+                          {buyer.status}
+                        </span>
+                      )}
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-500">
                       {new Date(buyer.updatedAt).toLocaleDateString()}
