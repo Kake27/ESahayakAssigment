@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation"
 import { useUser } from "@/context/UserContext"
 import { useState } from "react"
 import { User, LogIn, AlertCircle, Loader2 } from "lucide-react"
+import toast, { Toaster } from "react-hot-toast"
 
 export default function Home() {
     const {user, login, loading} = useUser()
@@ -42,8 +43,8 @@ export default function Home() {
             }
 
             login({ id: data.id, name: data.name });
-
-            router.push("/buyers");
+            router.replace("/buyers");
+            toast.success("Logged in successfully!")
             } catch (err) {
                 setError("Something went wrong");
             } finally {
@@ -53,6 +54,7 @@ export default function Home() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 flex items-center justify-center p-4 relative overflow-hidden">
+            <Toaster />
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.05),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.05),transparent_50%),radial-gradient(circle_at_40%_40%,rgba(59,130,246,0.05),transparent_50%)]"></div>
             

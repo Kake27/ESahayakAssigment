@@ -8,6 +8,7 @@ import type { Buyer } from "@/generated/prisma";
 import { User,Mail, Phone,MapPin,Home,DollarSign,Calendar,Tag,FileText,Clock,AlertCircle, Save,ArrowLeft,Edit,Eye,History,
     Trash2,X} from "lucide-react";
 import { useUser } from "@/context/UserContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const REVERSE_BHK_MAP: Record<string, string> = {
   "One": "1",
@@ -148,7 +149,8 @@ export default function BuyerClient({
             });
 
             if (res.ok) {
-                router.push("/buyers");
+                router.replace("/buyers");
+                toast.success("Deletion successful!")
             } else {
                 const data = await res.json();
                 setError(data.error || "Failed to delete buyer");
@@ -164,6 +166,7 @@ export default function BuyerClient({
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 p-4 relative overflow-hidden">
+            <Toaster />
             {/* Background Pattern */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.05),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.05),transparent_50%),radial-gradient(circle_at_40%_40%,rgba(59,130,246,0.05),transparent_50%)]"></div>
             

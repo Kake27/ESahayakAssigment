@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { Users,Plus,Upload,Download,LogOut,Search,Filter,Eye,Edit,AlertCircle,Calendar,Phone,MapPin,Home,DollarSign} from "lucide-react";
+import toast, { Toaster } from "react-hot-toast";
 
 interface BuyersClientProps {
   buyers: any[];
@@ -42,7 +43,9 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
 
   const handleLogout = () => {
     logout();
+    
     router.replace("/");
+    toast.success("Logged out successfully!")
   };
 
   if(!loading) {
@@ -66,8 +69,8 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
       if (data.errors) {
         setErrors(data.errors);
       } else {
-          alert("Import successful!");
           window.location.reload();
+          toast.success("Import successful!");
       }
   }
 
@@ -78,6 +81,7 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
+      <Toaster />
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.05),transparent_50%),radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.05),transparent_50%),radial-gradient(circle_at_40%_40%,rgba(59,130,246,0.05),transparent_50%)]"></div>
       
