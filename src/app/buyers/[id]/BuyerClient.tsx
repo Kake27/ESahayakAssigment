@@ -109,7 +109,14 @@ export default function BuyerClient({
         setError(null);
 
         try {
-            buyerSchemaRefined.safeParse(formData);
+            const parsed = buyerSchemaRefined.safeParse(formData);
+
+            if(!parsed.success) {
+                const messages = parsed.error.issues.map((err) => err.message).join("\n ");
+                setError(messages);
+                return;
+            }
+
             const res = await fetch(`/api/buyers/${buyer.id}`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
@@ -387,7 +394,7 @@ export default function BuyerClient({
                                 <div className="bg-red-50 border border-red-200 rounded-xl p-4 animate-in slide-in-from-top-2 duration-300">
                                     <div className="flex items-center gap-3">
                                         <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0" />
-                                        <p className="text-sm text-red-700 font-medium">{error}</p>
+                                        <p className="text-sm text-red-700 font-medium whitespace-pre-line">{error}</p>
                                     </div>
                                 </div>
                             )}

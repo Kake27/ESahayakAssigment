@@ -119,19 +119,6 @@ export default function Home() {
                                 )}
                             </div>
                         </button>
-
-                        {/* Additional Info */}
-                        <div className="text-center pt-4">
-                            <p className="text-sm text-gray-600">
-                                New to our platform?{' '}
-                                <button
-                                    type="button"
-                                    className="text-blue-600 hover:text-blue-700 font-semibold transition-colors duration-200 hover:underline focus:outline-none focus:underline"
-                                >
-                                    Contact Support
-                                </button>
-                            </p>
-                        </div>
                     </form>
                 </div>
                 {/* Footer */}

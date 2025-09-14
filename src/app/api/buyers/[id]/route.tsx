@@ -1,14 +1,13 @@
 import { PrismaClient } from "../../../../generated/prisma";
-import { buyerSchema } from "@/lib/validation/newBuyer";
+import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
 import { NextRequest, NextResponse } from "next/server";
-import { success } from "zod";
 
 const prisma = new PrismaClient()
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
     try {
         const body = await req.json()
-        const parsed = buyerSchema.parse(body)
+        const parsed = buyerSchemaRefined.parse(body)
 
         const param = await params
         const id = param.id

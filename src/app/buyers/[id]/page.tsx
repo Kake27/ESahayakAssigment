@@ -12,7 +12,7 @@ export default async function ViewAndEditPage({
 }) {
     const param = await params
     const id = param.id;
-    console.log("ID:" + id)
+
     const query = await searchParams
     const mode = query.mode === "edit" ? "edit" : "view";
 
