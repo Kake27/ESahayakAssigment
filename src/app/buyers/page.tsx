@@ -1,42 +1,70 @@
-"use client"
 
-import { useUser } from "@/context/UserContext"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { PrismaClient } from "../../generated/prisma"
+import Link from "next/link"
+import BuyersClient from "./BuyersClient";
 
-
-export default function Buyers() {
-    const {user, logout} = useUser()
-    const router = useRouter()
-
-    const handleCreateLead = () => {
-        router.push("/buyers/new")
+interface BuyersPageProps {
+    searchParams: {
+        page?: string;
+        city?: string;
+        propertyType?: string;
+        status?: string;
+        timeline?: string;
+        query?: string; 
     }
-    const handleLogout = () => {
-        logout()
-        router.replace("/login")
+}
+
+const PAGE_SIZE = 10;
+
+const prisma = new PrismaClient()
+
+export default async function Buyers({searchParams}: { searchParams: Promise<Record<string, string | undefined>> }) {
+    const params = await searchParams;
+    const page = parseInt(params.page || "1", 10)
+    const where: any = {}
+
+    // const {user, logout} = useUser()
+    // const router = useRouter()
+
+
+    if (params.city) where.city = params.city;
+    if (params.propertyType) where.propertyType = params.propertyType;
+    if (params.status) where.status = params.status;
+    if (params.timeline) where.timeline = params.timeline;
+
+    if (params.query) {
+        where.OR = [
+            { fullName: { contains: params.query, mode: "insensitive" } },
+            { phone: { contains: params.query } },
+            { email: { contains: params.query, mode: "insensitive" } },
+        ];
     }
+
+    const buyers = await prisma.buyer.findMany({
+        where,
+        orderBy: {updatedAt: "desc"},
+        skip: (page - 1) * PAGE_SIZE,
+        take: PAGE_SIZE
+    })
+
+    const total = await prisma.buyer.count({where})
+
+    const totalPages = Math.ceil(total / PAGE_SIZE);
+
+    // const handleCreateLead = () => {
+    //     router.push("/buyers/new")
+    // }
+    // const handleLogout = () => {
+    //     logout()
+    //     router.replace("/login")
+    // }
 
     return (
-        <div className="p-6">
-            <div className="flex justify-between items-center mb-6">
-                <h1 className="text-2xl font-semibold">Buyer Leads</h1>
-                <button onClick={handleCreateLead} className="mb-4">Create new lead</button>
-                {user && (
-                <div className="flex items-center gap-4">
-                    <span className="text-gray-700">Logged in as: {user.name}</span>
-                    <button
-                    onClick={handleLogout}
-                    className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                    >
-                    Logout
-                    </button>
-                </div>
-                )}
-            </div>
-
-            {/* 👇 Your buyers list table will go here */}
-            <p>TODO: Render buyers list...</p>
-        </div>
+        <BuyersClient
+            buyers={buyers}
+            totalPages={totalPages} 
+            currentPage={page}
+            params={params}
+        />
     )
 }
