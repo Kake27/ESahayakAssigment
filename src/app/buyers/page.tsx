@@ -51,14 +51,6 @@ export default async function Buyers({searchParams}: { searchParams: Promise<Rec
 
     const totalPages = Math.ceil(total / PAGE_SIZE);
 
-    // const handleCreateLead = () => {
-    //     router.push("/buyers/new")
-    // }
-    // const handleLogout = () => {
-    //     logout()
-    //     router.replace("/login")
-    // }
-
     return (
         <BuyersClient
             buyers={buyers}

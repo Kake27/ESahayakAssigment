@@ -5,6 +5,43 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { buyerSchemaRefined, type BuyerInput } from "@/lib/validation/newBuyer";
 
+const BHK_MAP: Record<string, string> = {
+  "1": "One",
+  "2": "Two",
+  "3": "Three",
+  "4": "Four",
+  "Studio": "Studio",
+};
+
+const REVERSE_BHK_MAP: Record<string, string> = {
+  "One": "1",
+  "Two": "2",
+  "Three": "3",
+  "Four": "4",
+  "Studio": "Studio",
+};
+
+const TIMELINE_MAP: Record<string, string> = {
+    "0-3 Months": "M0_3",
+    "3-6 Months": "M3_6",
+    ">6 Months": "M6_plus",
+    "Exploring": "Exploring",
+}
+
+const REVERSE_TIMELINE_MAP: Record<string, string> = {
+  "M0_3": "0-3 Months",
+  "M3_6": "3-6 Months",
+  "M6_plus": ">6 Months",
+  "Exploring": "Exploring",
+};
+
+const SOURCE_MAP: Record<string, string> = {
+    "Walk In": "Walk_in"
+}
+
+const REVERSE_SOURCE_MAP: Record<string, string> = {
+  "Walk_in": "Walk In",
+};
 
 export default function NewBuyer() {
     const {user} = useUser();
@@ -27,6 +64,7 @@ export default function NewBuyer() {
         budgetMax: undefined,
         timeline: "",
         source: "",
+        status: "New",
         notes: "",
         tags: [],
     });
@@ -34,10 +72,31 @@ export default function NewBuyer() {
     const [errors, setErrors] = useState<Record<string, string>>({});
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-        ...prev,
-        [name]: name.includes("budget") ? (value ? Number(value) : undefined) : value,
+        let { name, value } = e.target;
+
+        if (name.includes("budget")) {
+            setFormData((prev) => ({
+                ...prev,
+                [name]: value ? Number(value) : undefined
+            }))
+            return ;
+        }
+
+        if (name === "bhk") {
+            value = value ? BHK_MAP[value] : "";
+        }
+
+        if (name === "timeline") {
+            value = value ? TIMELINE_MAP[value] : "";
+        }
+
+        if (name === "source") {
+            value = value ? SOURCE_MAP[value] : "";
+        }
+
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
         }));
     };
 
@@ -55,7 +114,7 @@ export default function NewBuyer() {
       return;
     }
 
-    console.log(parsed.data)
+    // console.log(parsed.data)
 
     const res = await fetch("/api/buyers/new", {
             method: "POST",
@@ -119,16 +178,21 @@ export default function NewBuyer() {
                 {errors.phone && <p className="text-red-500">{errors.phone}</p>}
                 </div>
 
-                {/* City */}
+     
                 <div>
                 <label className="block">City</label>
-                <input
-                    type="text"
+                <select
                     name="city"
                     value={formData.city}
                     onChange={handleChange}
                     className="border p-2 w-full"
-                />
+                >
+                    <option>Chandigarh</option>
+                    <option>Mohali</option>
+                    <option>Zirakpur</option>
+                    <option>Panchkula</option>
+                    <option>Other</option>
+                </select>
                 </div>
 
                 {/* Property Type */}
@@ -143,8 +207,8 @@ export default function NewBuyer() {
                     <option>Apartment</option>
                     <option>Villa</option>
                     <option>Plot</option>
-                    <option>Land</option>
-                    <option>Other</option>
+                    <option>Office</option>
+                    <option>Retail</option>
                 </select>
                 </div>
 
@@ -152,13 +216,20 @@ export default function NewBuyer() {
                 {(formData.propertyType === "Apartment" || formData.propertyType === "Villa") && (
                 <div>
                     <label className="block">BHK</label>
-                    <input
-                    type="text"
+                    <select
                     name="bhk"
-                    value={formData.bhk}
+                    required
+                    value={REVERSE_BHK_MAP[formData.bhk] || ""} 
                     onChange={handleChange}
                     className="border p-2 w-full"
-                    />
+                >
+                    <option value="">Select BHK</option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>Studio</option>
+                </select>
                     {errors.bhk && <p className="text-red-500">{errors.bhk}</p>}
                 </div>
                 )}
@@ -166,13 +237,15 @@ export default function NewBuyer() {
                 {/* Purpose */}
                 <div>
                 <label className="block">Purpose</label>
-                <input
-                    type="text"
+                <select
                     name="purpose"
                     value={formData.purpose}
                     onChange={handleChange}
                     className="border p-2 w-full"
-                />
+                >
+                    <option>Buy</option>
+                    <option>Rent</option>
+                </select>
                 </div>
 
                 {/* Budget */}
@@ -203,25 +276,52 @@ export default function NewBuyer() {
                 {/* Timeline */}
                 <div>
                 <label className="block">Timeline</label>
-                <input
-                    type="text"
+               <select
                     name="timeline"
-                    value={formData.timeline}
+                    value={REVERSE_TIMELINE_MAP[formData.timeline] || ""}
                     onChange={handleChange}
                     className="border p-2 w-full"
-                />
+                >
+                    <option>0-3 Months</option>
+                    <option>3-6 Months</option>
+                    <option>{">"}6 Months</option>
+                    <option>Exploring</option>
+                </select>
                 </div>
 
                 {/* Source */}
                 <div>
                 <label className="block">Source</label>
-                <input
-                    type="text"
+                <select
                     name="source"
-                    value={formData.source}
+                    value={REVERSE_SOURCE_MAP[formData.source] || ""}
                     onChange={handleChange}
                     className="border p-2 w-full"
-                />
+                >
+                    <option>Website</option>
+                    <option>Referral</option>
+                    <option>Walk In</option>
+                    <option>Call</option>
+                    <option>Other</option>
+                </select>
+                </div>
+
+                <div>
+                <label className="block">Status</label>
+                <select
+                    name="status"
+                    value={formData.status}
+                    onChange={handleChange}
+                    className="border p-2 w-full"
+                >
+                    <option>New</option>
+                    <option>Qualified</option>
+                    <option>Contacted</option>
+                    <option>Visited</option>
+                    <option>Negotiation</option>
+                    <option>Converted</option>
+                    <option>Dropped</option>
+                </select>
                 </div>
 
                 {/* Notes */}
@@ -235,7 +335,7 @@ export default function NewBuyer() {
                 />
                 </div>
 
-                {/* Tags */}
+
                 <div>
                 <label className="block">Tags (comma separated)</label>
                 <input
@@ -249,7 +349,7 @@ export default function NewBuyer() {
                 </div>
 
                 <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">
-                Create Lead
+                    Create Lead
                 </button>
             </form>
     </div>
