@@ -2,6 +2,8 @@
 A mini CRM-style app to capture, list, and manage buyer leads.
 Built with **Next.js** (App Router) + **TypeScript** + **Prisma** + **Supabase**.
 
+**Deployment:** https://e-sahayak-assigment.vercel.app/
+
 ## Setup 
 ### 1. Clone and Install Dependencies
 Run the following commands:
