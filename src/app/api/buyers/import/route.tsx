@@ -1,9 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
-import {PrismaClient} from "../../../../generated/prisma"
+import { prisma } from "@/lib/prisma";
 import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
 import Papa from "papaparse"
 
-const prisma = new PrismaClient()
 
 const BHK_MAP: Record<string, string> = {
   "1": "One",

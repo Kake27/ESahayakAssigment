@@ -1,8 +1,7 @@
-import { PrismaClient } from "../../../../generated/prisma";    
+import { prisma } from "@/lib/prisma";;    
 import { NextResponse } from "next/server";
 import {Parser} from "json2csv";
 
-const prisma = new PrismaClient()
 
 export async function GET(req: Request) {
     const {searchParams} = new URL(req.url)

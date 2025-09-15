@@ -1,9 +1,8 @@
-import { PrismaClient, City, PropertyType, BHK, Purpose, Timeline, Source, Status } from "../../../../generated/prisma";
+import { prisma } from "@/lib/prisma";
+import { City, PropertyType, BHK, Purpose, Timeline, Source, Status } from "../../../../generated/prisma";
 import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
 import { NextRequest, NextResponse } from "next/server";
 
-
-const prisma = new PrismaClient()
 
 export async function PUT(req: Request, { params }: { params: Promise<{id:string}>}) {
     try {

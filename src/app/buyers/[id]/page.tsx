@@ -1,7 +1,6 @@
-import { PrismaClient } from "../../../generated/prisma";
+import { prisma } from "@/lib/prisma";
 import BuyerClient from "./BuyerClient";
 
-const prisma = new PrismaClient()
 
 export default async function ViewAndEditPage({
     params,

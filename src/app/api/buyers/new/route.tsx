@@ -1,10 +1,9 @@
 import { NextResponse } from "next/server";
 import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
-import { BHK, City, PrismaClient, Purpose, Source, Timeline } from '../../../../generated/prisma/'
+import { BHK, City, Purpose, Source, Timeline } from '../../../../generated/prisma/'
 import { rateLimit } from "@/lib/rateLimiter";
+import { prisma } from "@/lib/prisma";
 
-
-const prisma = new PrismaClient()
 
 export async function POST(req: Request) {
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown"
