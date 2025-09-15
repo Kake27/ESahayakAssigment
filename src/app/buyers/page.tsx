@@ -1,10 +1,7 @@
-
-import { PrismaClient } from "../../generated/prisma"
+import {prisma} from "../../lib/prisma"
 import BuyersClient from "./BuyersClient";
 
 const PAGE_SIZE = 10;
-
-const prisma = new PrismaClient()
 
 export default async function Buyers({searchParams}: { searchParams: Promise<Record<string, string | undefined>> }) {
     const params = await searchParams;
