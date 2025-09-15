@@ -44,7 +44,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{id:string
     
 }
 
-export async function DELETE(req: NextRequest, {params}:  {params: {id: string}}) {
+export async function DELETE(req: NextRequest, {params}:  {params: Promise<{id:string}>}) {
     try {
         const param = await params
         const id  = param.id
