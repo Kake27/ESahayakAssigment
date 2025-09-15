@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@/context/UserContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { buyerSchemaRefined, type BuyerInput } from "@/lib/validation/newBuyer";
 import { User,Mail,Phone,MapPin,Home,Calendar,Tag,FileText,Clock,AlertCircle, Save,ArrowLeft,Plus,UserPlus, IndianRupee
@@ -57,10 +57,6 @@ export default function NewBuyer() {
     const {user} = useUser();
     const router = useRouter();
 
-    if(!user) { 
-        return router.replace("/");
-    }
-    
     const [formData, setFormData] = useState<BuyerInput>({
         fullName: "",
         email: "",
@@ -81,8 +77,17 @@ export default function NewBuyer() {
     const [errors, setErrors] = useState<Record<string, string>>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    useEffect(() => {
+        if (!user) {
+            router.replace("/");
+        }
+    }, [user, router]);    
+
+    
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        let { name, value } = e.target;
+        const name = e.target.name
+        let { value } = e.target;
 
         if (name.includes("budget")) {
             setFormData((prev) => ({

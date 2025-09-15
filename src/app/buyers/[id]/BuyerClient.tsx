@@ -85,7 +85,8 @@ export default function BuyerClient({
     const [isDeleting, setIsDeleting] = useState(false);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-        let { name, value } = e.target;
+        const name = e.target.name
+        let { value } = e.target;
         if (name.includes("budget")) {
             setFormData((prev) => ({
             ...prev,
