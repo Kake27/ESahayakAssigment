@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
     }
 
     const rowErrors: { row: number; message: string }[] = [];
-    const validRows: any[] = [];
+    const validRows :any[] = [];
 
     data.forEach((row: any, i: number) => {
        

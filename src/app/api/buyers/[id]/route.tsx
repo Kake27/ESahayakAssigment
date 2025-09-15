@@ -55,8 +55,9 @@ export async function PUT(req: Request, { params }: { params: Promise<{id:string
 
         return NextResponse.json(updated);
     }
-    catch(err:any) {
-        return NextResponse.json({ error: err.message }, { status: 400 });
+    catch(err) {
+        const errorMessage = typeof err === "object" && err !== null && "message" in err ? (err as { message: string }).message : "An error occurred";
+        return NextResponse.json({ error: errorMessage }, { status: 400 });
     }
     
 }
@@ -76,7 +77,8 @@ export async function DELETE(req: NextRequest, {params}:  {params: Promise<{id:s
 
         return NextResponse.json({success: true}, {status: 200});
     }
-    catch(err:any) {
-        return NextResponse.json({ error: err.message || "Failed to delete buyer" },{ status: 500 });
+    catch(err) {
+        const errorMessage = typeof err === "object" && err !== null && "message" in err ? (err as { message: string }).message : "Failed to delete buyer";
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }
