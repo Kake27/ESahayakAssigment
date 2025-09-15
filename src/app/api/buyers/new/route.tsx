@@ -26,6 +26,7 @@ export async function POST(req: Request) {
             return NextResponse.json({error: parsed.error})
         }
 
+        const bhkValue = parsed.data.bhk ? (parsed.data.bhk as BHK) : undefined
         const newBuyer = await prisma.buyer.create({
             data: {
                 ...parsed.data, 
