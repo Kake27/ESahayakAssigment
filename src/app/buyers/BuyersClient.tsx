@@ -48,7 +48,7 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
   };
 
   if(!loading) {
-    if(!user) return router.replace("/")
+    if(!user) router.replace("/")
   }
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

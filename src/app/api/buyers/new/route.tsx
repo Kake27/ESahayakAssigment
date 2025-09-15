@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
-import { PrismaClient } from '../../../../generated/prisma/'
+import { BHK, City, PrismaClient, Purpose, Source, Timeline } from '../../../../generated/prisma/'
 import { rateLimit } from "@/lib/rateLimiter";
 
 
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
 
     if(!limit.success) {
         return NextResponse.json(
-            {error: `Rate limit exceeded. Please try again in ${Math.ceil(limit.retryAfter/1000)}s`},
+            {error: `Rate limit exceeded. Please try again in ${Math.ceil((limit.retryAfter ?? 0)/1000)}s`},
             {status: 429}
         )
     }
@@ -23,10 +23,21 @@ export async function POST(req: Request) {
 
         if(!body.ownerId) return NextResponse.json({ error: "Missing ownerId" }, { status: 400 });
 
+        if(!parsed.success) {
+            return NextResponse.json({error: parsed.error})
+        }
+
         const newBuyer = await prisma.buyer.create({
             data: {
                 ...parsed.data, 
-                ownerId: body.ownerId,
+                city: parsed.data.city as City,
+                bhk: parsed.data.bhk as BHK,
+                purpose: parsed.data.purpose as Purpose,
+                timeline: parsed.data.timeline as Timeline,
+                source: parsed.data.source as Source,
+                owner: {
+                    connect: {id: body.ownerId}
+                }
             },
         })
 

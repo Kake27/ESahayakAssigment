@@ -2,17 +2,6 @@
 import { PrismaClient } from "../../generated/prisma"
 import BuyersClient from "./BuyersClient";
 
-interface BuyersPageProps {
-    searchParams: {
-        page?: string;
-        city?: string;
-        propertyType?: string;
-        status?: string;
-        timeline?: string;
-        query?: string; 
-    }
-}
-
 const PAGE_SIZE = 10;
 
 const prisma = new PrismaClient()

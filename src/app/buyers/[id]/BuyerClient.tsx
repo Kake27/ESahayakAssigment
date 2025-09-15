@@ -139,7 +139,7 @@ export default function BuyerClient({
                 router.push("/buyers");
             } else {
                 const data = await res.json();
-                setError(data.error || "Something went wrong");
+                toast.error(data.error || "Something went wrong");
             }
 
         }
@@ -160,7 +160,7 @@ export default function BuyerClient({
                 toast.success("Deletion successful!")
             } else {
                 const data = await res.json();
-                setError(data.error || "Failed to delete buyer");
+                toast.error(data.error || "Failed to delete buyer");
                 setShowDeleteModal(false);
             }
         } catch (err) {

@@ -1,6 +1,7 @@
-import { PrismaClient } from "../../../../generated/prisma";
+import { PrismaClient, City, PropertyType, BHK, Purpose, Timeline, Source, Status } from "../../../../generated/prisma";
 import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
 import { NextRequest, NextResponse } from "next/server";
+import { Prisma } from "@prisma/client/edge";
 
 const prisma = new PrismaClient()
 
@@ -8,6 +9,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{id:string
     try {
         const body = await req.json()
         const parsed = buyerSchemaRefined.parse(body)
+        const { fullName, phone, city, propertyType, bhk, purpose, budgetMin, budgetMax, timeline, source, status, notes, tags } = parsed
 
         const param = await params
         const id = param.id
@@ -25,7 +27,23 @@ export async function PUT(req: Request, { params }: { params: Promise<{id:string
 
         const updated = await prisma.buyer.update({
             where: {id: id},
-            data: parsed,
+            data : {
+                fullName: parsed.fullName,
+                email: parsed.email,
+                phone: parsed.phone,
+                city: parsed.city as City,
+                propertyType: parsed.propertyType as PropertyType,
+                bhk: parsed.bhk ? (parsed.bhk as BHK) : null,
+                purpose: parsed.purpose as Purpose,
+                budgetMin: parsed.budgetMin,
+                budgetMax: parsed.budgetMax,
+                timeline: parsed.timeline as Timeline,
+                source: parsed.source as Source,
+                status: parsed.status as Status,
+                notes: parsed.notes,
+                tags: parsed.tags,
+            },
+
         })
 
         await prisma.buyerHistory.create({
