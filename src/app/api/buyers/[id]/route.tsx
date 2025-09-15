@@ -1,7 +1,7 @@
 import { PrismaClient, City, PropertyType, BHK, Purpose, Timeline, Source, Status } from "../../../../generated/prisma";
 import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
 import { NextRequest, NextResponse } from "next/server";
-import { Prisma } from "@prisma/client/edge";
+
 
 const prisma = new PrismaClient()
 
@@ -9,7 +9,6 @@ export async function PUT(req: Request, { params }: { params: Promise<{id:string
     try {
         const body = await req.json()
         const parsed = buyerSchemaRefined.parse(body)
-        const { fullName, phone, city, propertyType, bhk, purpose, budgetMin, budgetMax, timeline, source, status, notes, tags } = parsed
 
         const param = await params
         const id = param.id

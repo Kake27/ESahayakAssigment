@@ -3,7 +3,7 @@
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Users,Plus,Upload,Download,LogOut,Search,Filter,Eye,Edit,AlertCircle,Calendar,Phone,MapPin,Home, IndianRupee} from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -47,9 +47,13 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
     toast.success("Logged out successfully!")
   };
 
-  if(!loading) {
-    if(!user) router.replace("/")
-  }
+  if (!loading && !user) {
+    useEffect(() => {
+      router.replace("/");
+    }, [router]);
+
+  return null; 
+}
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if(!e.target.files?.[0]) return;
