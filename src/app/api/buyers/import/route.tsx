@@ -18,10 +18,17 @@ const TIMELINE_MAP: Record<string, string> = {
     "3-6 Months": "M3_6",
     ">6 Months": "M6_plus",
     "Exploring": "Exploring",
+    "0-3m": "M0_3",
+    "3-6m": "M3_6",
+    ">6m": "M6_plus",
 }
 
 const SOURCE_MAP: Record<string, string> = {
-    "Walk In": "Walk_in"
+    "Walk In": "Walk_in",
+    "Website": "Website",
+    "Referral": "Referral",
+    "Other": "Other",
+    "Call": "Call",
 }
 
 export async function POST(req: NextRequest) {
@@ -51,7 +58,7 @@ export async function POST(req: NextRequest) {
     const validRows: any[] = [];
 
     data.forEach((row: any, i: number) => {
-        // convert numbers
+       
         if (row.budgetMin) row.budgetMin = Number(row.budgetMin);
         if (row.budgetMax) row.budgetMax = Number(row.budgetMax);
         
@@ -85,7 +92,7 @@ export async function POST(req: NextRequest) {
                 budgetMax: parsed.data.budgetMax ?? null,
                 notes: parsed.data.notes && parsed.data.notes.trim() !== "" ? parsed.data.notes : null,
                 tags: parsed.data.tags ?? [],
-                status: parsed.data.status || "New", // default
+                status: parsed.data.status || "New", 
             };
 
             validRows.push(normalized);
@@ -94,13 +101,10 @@ export async function POST(req: NextRequest) {
 
 
     if (validRows.length === 0) {
-        
         return NextResponse.json({ errors: rowErrors }, { status: 400 });
     }
 
     try {
-        console.log(validRows)
-
         await prisma.$transaction(
             validRows.map((buyer) => prisma.buyer.create({ data: buyer }))
         );

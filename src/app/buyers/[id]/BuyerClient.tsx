@@ -2,11 +2,10 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { buyerSchema } from "@/lib/validation/newBuyer";
 import { buyerSchemaRefined } from "@/lib/validation/newBuyer";
 import type { Buyer } from "@/generated/prisma";
-import { User,Mail, Phone,MapPin,Home,DollarSign,Calendar,Tag,FileText,Clock,AlertCircle, Save,ArrowLeft,Edit,Eye,History,
-    Trash2,X} from "lucide-react";
+import { User,Mail, Phone,MapPin,Home,Calendar,Tag,FileText,Clock,AlertCircle, Save,ArrowLeft,Edit,Eye,History,
+    Trash2,X,IndianRupee} from "lucide-react";
 import { useUser } from "@/context/UserContext";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -26,7 +25,11 @@ const REVERSE_TIMELINE_MAP: Record<string, string> = {
 };
 
 const REVERSE_SOURCE_MAP: Record<string, string> = {
-  "Walk_in": "Walk In",
+    "Walk_in": "Walk In",
+    "Website": "Website",
+    "Referral": "Referral",
+    "Other": "Other",
+    "Call": "Call",
 };
 
 const BHK_MAP: Record<string, string> = {
@@ -45,7 +48,11 @@ const TIMELINE_MAP: Record<string, string> = {
 }
 
 const SOURCE_MAP: Record<string, string> = {
-    "Walk In": "Walk_in"
+    "Walk In": "Walk_in",
+    "Website": "Website",
+    "Referral": "Referral",
+    "Other": "Other",
+    "Call": "Call",
 }
 
 const STATUS_COLORS: Record<string, string> = {
@@ -280,7 +287,7 @@ export default function BuyerClient({
                         {/* Purchase Details Card */}
                         <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl border border-white/20 p-6">
                             <h2 className="text-xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
-                                <DollarSign className="w-5 h-5 text-green-600" />
+                                <IndianRupee className="w-5 h-5 text-green-600" />
                                 Purchase Details
                             </h2>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -295,7 +302,7 @@ export default function BuyerClient({
                                 </div>
                                 <div className="flex items-center gap-3">
                                     <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center">
-                                        <DollarSign className="w-5 h-5 text-green-600" />
+                                        <IndianRupee className="w-5 h-5 text-green-600" />
                                     </div>
                                     <div>
                                         <p className="text-sm text-gray-500">Budget Range</p>
@@ -548,7 +555,7 @@ export default function BuyerClient({
                             {/* Budget & Timeline Section */}
                             <div>
                                 <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                                    <DollarSign className="w-5 h-5 text-green-600" />
+                                    <IndianRupee className="w-5 h-5 text-green-600" />
                                     Budget & Timeline
                                 </h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -563,7 +570,7 @@ export default function BuyerClient({
                                                 className="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl transition-all duration-200 focus:outline-none focus:ring-4 focus:border-blue-500 focus:ring-blue-100 bg-white/90 backdrop-blur-sm"
                                                 placeholder="Minimum budget"
                                             />
-                                            <DollarSign className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                            <IndianRupee className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                                         </div>
                                     </div>
 
@@ -578,7 +585,7 @@ export default function BuyerClient({
                                                 className="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl transition-all duration-200 focus:outline-none focus:ring-4 focus:border-blue-500 focus:ring-blue-100 bg-white/90 backdrop-blur-sm"
                                                 placeholder="Maximum budget"
                                             />
-                                            <DollarSign className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                            <IndianRupee className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                                         </div>
                                         {errors.budgetMax && <p className="text-sm text-red-600 flex items-center gap-1"><AlertCircle className="w-4 h-4" />{errors.budgetMax}</p>}
                                     </div>

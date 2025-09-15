@@ -4,7 +4,7 @@ import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
-import { Users,Plus,Upload,Download,LogOut,Search,Filter,Eye,Edit,AlertCircle,Calendar,Phone,MapPin,Home,DollarSign} from "lucide-react";
+import { Users,Plus,Upload,Download,LogOut,Search,Filter,Eye,Edit,AlertCircle,Calendar,Phone,MapPin,Home, IndianRupee} from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 
 interface BuyersClientProps {
@@ -65,8 +65,15 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
     })
 
     const data = await res.json();
-      if (data.errors) {
+      if (data.errors && data.errors.length>0) {
         setErrors(data.errors);
+
+        if(data.inserted && data.inserted>0) {
+          toast.success(`Imported ${data.inserted} rows successfully. Refresh the page to see updated entries.`)
+        }
+        else {
+          toast.error("Imported failed. The file has errors.")
+        }
       } else {
           window.location.reload();
           toast.success("Import successful!");
@@ -335,6 +342,7 @@ export default function BuyersClient({buyers, totalPages, currentPage, params}: 
                     </td>
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
+                        <IndianRupee className="w-4 h-4"/>
                         <span className="text-sm text-gray-700">
                           {buyer.budgetMin} - {buyer.budgetMax}
                         </span>

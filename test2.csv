@@ -1,9 +1,21 @@
 fullName,email,phone,city,propertyType,bhk,purpose,budgetMin,budgetMax,timeline,source,notes,tags,status
-John Doe,john@example.com,9876543210,Chandigarh,Apartment,2,Buy,500000,700000,0-3 Months,Website,Looking for 2 BHK,"urgent,priority",New
-Jane Smith,invalid-email,12345,Mohali,Villa,3,Rent,20000,15000,3-6 Months,Referral,Invalid budget range,"",Qualified
-Sam Patel,sam@example.com,9876543211,Zirakpur,Plot,,Buy,,1000000,Exploring,Call,Missing min budget,"investment",Contacted
-,empty@example.com,9876543212,Panchkula,Apartment,Studio,Buy,300000,400000,0-3 Months,Website,Missing name,"",Visited
-Aarav Gupta,aarav@example,9876543213,Other,Villa,5,Buy,1000000,2000000,>6 Months,Walk In,Invalid email + BHK,"",Converted
-Priya Mehta,priya@example.com,abcdefghij,Chandigarh,Office,,Buy,500000,600000,0-3 Months,Website,Invalid phone digits,"office",Negotiation
-Rohit Sharma,rohit@example.com,9876543214,Mohali,Apartment,2,Buy,800000,700000,0-3 Months,Other,Budget max less than min,"",Dropped
-Anita Rao,anita@example.com,9876543215,Zirakpur,Villa,,Rent,400000,500000,InvalidTimeline,Website,Invalid timeline,"rent",New
+John Doe,john@example.com,9876543210,Chandigarh,Apartment,Two,Buy,500000,700000,0-3 Months,Website,Looking for 2 BHK,urgent;priority,New
+Jane Smith,jane.smith@example.com,9998887776,Mohali,Villa,Three,Buy,1200000,1500000,3-6 Months,Referral,Needs luxury villa,family;vip,Qualified
+Rahul Gupta,rahulgupta@example,8887766554,Zirakpur,Apartment,1,Buy,400000,350000,>6 Months,Website,Invalid budget order,cheap,New
+Meena Patel,meena.patel@example.com,98765,Panchkula,Plot,,Buy,800000,900000,Exploring,Call,Phone number too short,,Contacted
+Arjun Rao,arjun.rao@example.com,9876543211,Other,Land,,Buy,1000000,2000000,0-3 Months,Walk In,,investment,New
+Priya Sharma,priya.sharma@example.com,9876543212,Chandigarh,Apartment,Four,Buy,600000,800000,0-3 Months,Website,Looking for family home,,New
+Sanjay Kumar,sanjay.kumar@example.com,9876543213,Mohali,Villa,Studio,Buy,2000000,2500000,3-6 Months,Referral,,luxury,Negotiation
+Anita Desai,anita.desai@example.com,9876543214,Zirakpur,Apartment,Two,Rent,20000,25000,Exploring,Other,Searching for rental,,Qualified
+Vikram Singh,vikram.singh@example.com,9876543215,Panchkula,Office,,Buy,3000000,3500000,>6 Months,Website,Looking for office space,,Dropped
+Sneha Kapoor,sneha.kapoor@example.com,abcdefghij,Chandigarh,Apartment,Three,Buy,700000,900000,0-3 Months,Website,Phone invalid,priority,New
+Ravi Malhotra,ravi.malhotra@example.com,9876543217,Mohali,Villa,Two,Buy,900000,1100000,3-6 Months,Referral,Good locality preferred,family,Contacted
+Sunita Yadav,sunita.yadav@example.com,9876543218,Zirakpur,Apartment,,Buy,400000,600000,0-3 Months,Website,BHK missing for apartment,,New
+Amit Verma,amit.verma@example.com,9876543219,Panchkula,Land,,Buy,2000000,2500000,Exploring,Walk In,,investment,Qualified
+Roshni Mehta,roshni.mehta@example.com,9876543220,Chandigarh,Villa,One,Buy,1000000,950000,>6 Months,Referral,BudgetMax < BudgetMin,,New
+Karan Thakur,karan.thakur@example.com,9876543221,Mohali,Plot,,Buy,1500000,1700000,0-3 Months,Website,Looking for investment plot,,Converted
+Deepa Nair,deepa.nair@example.com,9876543222,Zirakpur,Apartment,Three,Buy,700000,1000000,3-6 Months,Call,Prefers corner flat,,New
+Gaurav Joshi,gaurav.joshi@example.com,9876543223,Panchkula,Villa,Two,Buy,1800000,2200000,Exploring,Website,,luxury,New
+Ritika Sharma,ritika.sharma@example.com,9876543224,Other,Apartment,Four,Buy,800000,850000,0-3 Months,Website,Small error test,,New
+Nikhil Bansal,nikhil.bansal@example.com,9876543225,Chandigarh,Apartment,Three,Buy,0,-50000,3-6 Months,Referral,Budget negative test,,New
+Alok Pandey,alok.pandey@example.com,9876543226,Mohali,Retail,,Buy,2500000,3000000,>6 Months,Walk In,Wants shop for business,,Qualified

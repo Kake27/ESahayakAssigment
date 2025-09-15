@@ -15,6 +15,7 @@ export default function Home() {
     const [loadingPage, setLoading] = useState(false);
 
     useEffect(() => {
+        
         if(!loading) {
             if(user) {
                 router.replace("/buyers")
@@ -105,7 +106,7 @@ export default function Home() {
                         <button
                             type="submit"
                             disabled={loadingPage}
-                            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 px-6 rounded-xl font-semibold text-lg transition-all duration-200 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
+                            className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3.5 px-6 rounded-xl font-semibold text-lg transition-all duration-200 hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-4 focus:ring-blue-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none transform hover:scale-[1.02] active:scale-[0.98] shadow-lg hover:shadow-xl"
                         >
                             <div className="flex items-center justify-center gap-3">
                                 {loadingPage ? (

@@ -4,7 +4,7 @@ import { useUser } from "@/context/UserContext";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { buyerSchemaRefined, type BuyerInput } from "@/lib/validation/newBuyer";
-import { User,Mail,Phone,MapPin,Home,DollarSign,Calendar,Tag,FileText,Clock,AlertCircle, Save,ArrowLeft,Plus,UserPlus
+import { User,Mail,Phone,MapPin,Home,Calendar,Tag,FileText,Clock,AlertCircle, Save,ArrowLeft,Plus,UserPlus, IndianRupee
 } from "lucide-react";
 
 const BHK_MAP: Record<string, string> = {
@@ -38,11 +38,19 @@ const REVERSE_TIMELINE_MAP: Record<string, string> = {
 };
 
 const SOURCE_MAP: Record<string, string> = {
-    "Walk In": "Walk_in"
+    "Website": "Website",
+    "Walk In": "Walk_in",
+    "Referral": "Referral",
+    "Other": "Other",
+    "Call": "Call",
 }
 
 const REVERSE_SOURCE_MAP: Record<string, string> = {
-  "Walk_in": "Walk In",
+    "Walk_in": "Walk In",
+    "Website": "Website",
+    "Referral": "Referral",
+    "Other": "Other",
+    "Call": "Call",
 };
 
 export default function NewBuyer() {
@@ -154,7 +162,7 @@ export default function NewBuyer() {
                         <div className="flex items-center gap-4">
                             <button
                                 onClick={() => router.push("/buyers")}
-                                className="inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-xl text-gray-700 hover:bg-white/90 transition-all duration-200 shadow-sm hover:shadow-md"
+                                className="inline-flex cursor-pointer items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-white/20 rounded-xl text-gray-700 hover:bg-white/90 transition-all duration-200 shadow-sm hover:shadow-md"
                             >
                                 <ArrowLeft className="w-4 h-4" />
                                 Back to Buyers
@@ -351,7 +359,7 @@ export default function NewBuyer() {
                         {/* Budget & Timeline Section */}
                         <div>
                             <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                                <DollarSign className="w-5 h-5 text-green-600" />
+                                <IndianRupee className="w-5 h-5 text-green-600" />
                                 Budget & Timeline
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -366,7 +374,7 @@ export default function NewBuyer() {
                                             className="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl transition-all duration-200 focus:outline-none focus:ring-4 focus:border-blue-500 focus:ring-blue-100 bg-white/90 backdrop-blur-sm"
                                             placeholder="Minimum budget"
                                         />
-                                        <DollarSign className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                        <IndianRupee className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                                     </div>
                                 </div>
 
@@ -381,7 +389,7 @@ export default function NewBuyer() {
                                             className="w-full px-4 py-3 pl-12 border-2 border-gray-200 rounded-xl transition-all duration-200 focus:outline-none focus:ring-4 focus:border-blue-500 focus:ring-blue-100 bg-white/90 backdrop-blur-sm"
                                             placeholder="Maximum budget"
                                         />
-                                        <DollarSign className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                                        <IndianRupee className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                                     </div>
                                     {errors.budgetMax && <p className="text-sm text-red-600 flex items-center gap-1"><AlertCircle className="w-4 h-4" />{errors.budgetMax}</p>}
                                 </div>
