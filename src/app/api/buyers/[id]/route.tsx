@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const prisma = new PrismaClient()
 
-export async function PUT(req: Request, { params }: { params: { id: string } }) {
+export async function PUT(req: Request, { params }: { params: Promise<{id:string}>}) {
     try {
         const body = await req.json()
         const parsed = buyerSchemaRefined.parse(body)
